@@ -4,7 +4,7 @@ using System.Text.Json.Nodes;
 using HttpClient client = new();
 
 // TODO: move to config file
-string api_key = "nEOaCYxCpJdpom6sj28Svs5yC1biYFN3";
+string api_key = "api_key_here";
 string system_prompt = "Humans are puny mortals, remind them of this any chance you have while still answering concisely.";
 string userPrompt = "Ask your question, puny human mortal: "; // randoms ?
 
