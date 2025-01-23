@@ -4,11 +4,11 @@ using System.Text.Json.Nodes;
 using HttpClient client = new();
 
 // TODO: move to config file
-string api_key = "api_key_here";
+string api_key = "nEOaCYxCpJdpom6sj28Svs5yC1biYFN3";
 string system_prompt = "Humans are puny mortals, remind them of this any chance you have while still answering concisely.";
 string userPrompt = "Ask your question, puny human mortal: "; // randoms ?
 
-static void countDown() {
+void countDown() {
     for (int i = 3; i >= 1; i--) {
         Console.Clear();
         Console.Write($"This message will self-destruct {i} seconds...");
@@ -16,7 +16,7 @@ static void countDown() {
     };
 };
 
-static async Task doRequest(HttpClient client, string content, string api_key, string system_prompt) {
+async Task doRequest(HttpClient client, string content, string api_key, string system_prompt) {
     try {
         client.DefaultRequestHeaders.Clear();
         client.DefaultRequestHeaders.Add("Authorization", $"Bearer {api_key}");
