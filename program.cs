@@ -6,4 +6,4 @@ MistralChat mistralChat = new();
 
 Console.Write(config.UserPrompt);
 await mistralChat.MakeModelRequest(Console.ReadLine()!);
-Console.ReadKey();
+
