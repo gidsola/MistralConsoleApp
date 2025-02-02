@@ -1,11 +1,8 @@
 ﻿using System.Text;
 using Newtonsoft.Json;
-using HttpClient client = new();
 
-// TODO: move to config file
-string api_key = "";
-string system_prompt = "Humans are puny mortals, remind them of this any chance you have while still answering concisely.";
-string userPrompt = "Ask your question, puny human mortal: "; // randoms ?
+using HttpClient client = new();
+MistralConfig config = new();
 
 void countDown() {
     for (int i = 3; i >= 1; i--) {
@@ -15,25 +12,25 @@ void countDown() {
     };
 };
 
-async Task doRequest(HttpClient client, string content, string api_key, string system_prompt) {
+async Task doRequest(HttpClient client, string content) {
     try {
         client.DefaultRequestHeaders.Clear();
-        client.DefaultRequestHeaders.Add("Authorization", $"Bearer {api_key}");
+        client.DefaultRequestHeaders.Add("Authorization", $"Bearer {config.ApiKey}");
 
-        object body = new {
-            model = "mistral-large-latest",
-            top_p = 0.87,
-            max_tokens = 1048,
-            stream = false,
-            safe_prompt = false,
+        dynamic body = new {
+            model = config.Model,
+            top_p = config.Top_p,
+            max_tokens = config.Max_tokens,
+            stream = config.Stream,
+            safe_prompt = config.Safe_prompt,
             messages = new List<dynamic> {
-                 new { role = "system", content = system_prompt },
+                 new { role = "system", content = config.SystemPrompt },
                  new { role = "user", content }
             }
         };
 
         using var result = await client.PostAsync(
-            "https://api.mistral.ai/v1/chat/completions",
+            config.Endpoint,
             new StringContent(
                 JsonConvert.SerializeObject(body),
                 Encoding.UTF8,
@@ -56,7 +53,7 @@ async Task doRequest(HttpClient client, string content, string api_key, string s
 
             else if (done.Key == ConsoleKey.Y) {
                 Console.Write("\n\nWhat is it then? "); // randoms ?
-                await doRequest(client, Console.ReadLine()!, api_key, system_prompt);
+                await doRequest(client, Console.ReadLine()!);
             };
         }
         else Console.Write("it didn't go vroom");
@@ -67,5 +64,5 @@ async Task doRequest(HttpClient client, string content, string api_key, string s
     };
 };
 
-Console.Write(userPrompt);
-await doRequest(client, Console.ReadLine()!, api_key, system_prompt);
+Console.Write(config.UserPrompt);
+await doRequest(client, Console.ReadLine()!);
