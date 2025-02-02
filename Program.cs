@@ -1,10 +1,9 @@
 ﻿using System.Text;
-using System.Text.Json;
-using System.Text.Json.Nodes;
+using Newtonsoft.Json;
 using HttpClient client = new();
 
 // TODO: move to config file
-string api_key = "api_key_here";
+string api_key = "nEOaCYxCpJdpom6sj28Svs5yC1biYFN3";
 string system_prompt = "Humans are puny mortals, remind them of this any chance you have while still answering concisely.";
 string userPrompt = "Ask your question, puny human mortal: "; // randoms ?
 
@@ -27,16 +26,16 @@ async Task doRequest(HttpClient client, string content, string api_key, string s
             max_tokens = 1048,
             stream = false,
             safe_prompt = false,
-            messages = new List<object> {
-                new { role = "system", content = system_prompt },
-                new { role = "user", content }
+            messages = new List<dynamic> {
+                 new { role = "system", content = system_prompt },
+                 new { role = "user", content }
             }
         };
 
         using var result = await client.PostAsync(
             "https://api.mistral.ai/v1/chat/completions",
             new StringContent(
-                JsonSerializer.Serialize(body),
+                JsonConvert.SerializeObject(body),
                 Encoding.UTF8,
                 "application/json"
             )
@@ -44,10 +43,10 @@ async Task doRequest(HttpClient client, string content, string api_key, string s
 
         if (result.IsSuccessStatusCode) {
             string responseString = result.Content.ReadAsStringAsync().Result;
-            dynamic responseObject = JsonObject.Parse(responseString)!;
-            string uglyReply = Convert.ToString(responseObject["choices"][0]["message"]["content"]);
+            dynamic responseObject = JsonConvert.DeserializeObject(responseString)!;
+            string response = responseObject.choices[0].message.content;
 
-            Console.WriteLine("\r\n" + uglyReply + "\r\n");
+            Console.WriteLine("\r\n" + response + "\r\n");
             Console.Write("Have you anymore questions? (Y/N) "); // randoms ?
 
             var done = Console.ReadKey(true); // true supresses keypress.
