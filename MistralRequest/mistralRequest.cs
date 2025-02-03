@@ -1,21 +1,28 @@
 ﻿using System.Text;
 using Newtonsoft.Json;
-using MistralAppConfig;
+using MistralConfig;
 //using MistralMessageHistory;
 
 
-namespace MistralConsoleApp {
+/*
+ * TODO:
+ * This all needs to be cleaned up. 
+ * extract the texts surrounding the requester (MakeModelRequest)
+ * and start adding other "requesters"
+ */
+
+namespace MistralRequest {
 
     internal class MistralChat {
 
         readonly HttpClient client = new();
-        readonly MistralConfig config = new();
+        readonly MistralChatConfig config = new();
 
-        internal static void CountDown() {
+        internal static void CountDown() { // TODO
             for (int i = 3; i >= 1; i--) {
                 Console.Clear();
                 Console.Write($"This message will self-destruct {i} seconds...");
-                System.Threading.Thread.Sleep(1000);
+                Thread.Sleep(1000);
             };
         }
 
@@ -51,26 +58,26 @@ namespace MistralConsoleApp {
                     dynamic responseObject = JsonConvert.DeserializeObject(responseString)!;
                     string response = responseObject.choices[0].message.content;
 
-                    Console.WriteLine("\r\n" + response + "\r\n");
-                    Console.Write("Have you anymore questions? (Y/N) "); // randoms ?
+                    Console.WriteLine("\r\n" + response + "\r\n"); // TODO
+                    Console.Write("Have you anymore questions? (Y/N) "); // TODO
 
-                    var done = Console.ReadKey(true); // true supresses keypress.
+                    var done = Console.ReadKey(true); // something happened here, unexpected keys are exiting process..
 
-                    if (done.Key == ConsoleKey.N)
+                    if (done.Key == ConsoleKey.N) // TODO
                         CountDown();
 
-                    else if (done.Key == ConsoleKey.Y) {
-                        Console.Write("\n\nWhat is it then? "); // randoms ?
+                    else if (done.Key == ConsoleKey.Y) { // TODO
+                        Console.Write("\n\nWhat is it then? "); 
                         await MakeModelRequest(Console.ReadLine()!);
                     };
                 }
-                else Console.Write("it didn't go vroom");
+                else throw new Exception("it didn't go vroom"); // change to reflect info from details
             }
-            catch (Exception e) {
-                Console.WriteLine("Error Message: " + e.Message);
-                Console.WriteLine("Stack: " + e.StackTrace);
+            catch (Exception e) { // get specific; details from request when error
+                Console.WriteLine("error in requester: " + e);
             };
         }
-    }
-};
+    };
 
+    internal class MistralVision { }; // TODO
+};

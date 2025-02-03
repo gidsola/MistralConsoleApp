@@ -1,7 +1,8 @@
-﻿using MistralConsoleApp;
-using MistralAppConfig;
+﻿
+using MistralConfig;
+using MistralRequest;
 
-MistralConfig config = new();
+MistralChatConfig config = new();
 MistralChat mistralChat = new();
 
 Console.Write(config.UserPrompt);

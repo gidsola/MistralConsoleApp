@@ -1,11 +1,7 @@
 ﻿using System;
 using System.IO;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace MistralMessageHistory {
+namespace MistralContext {
     internal class MessageHistory {
         public static async Task AddPair() {
             string docPath = "./";//Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
@@ -14,5 +10,5 @@ namespace MistralMessageHistory {
             await outputFile.WriteAsync("This is a sentence.");
 
         }
-    }
+    };
 };
