@@ -1,8 +1,6 @@
 ﻿using System.Text;
 using Newtonsoft.Json;
 using MistralConfig;
-//using MistralMessageHistory;
-
 
 /*
  * TODO:
@@ -26,7 +24,7 @@ namespace MistralRequest {
             };
         }
 
-        public async Task MakeModelRequest(string content) {
+        public async Task ChatCompletion(string content) {
             try {
 
                 client.DefaultRequestHeaders.Clear();
@@ -68,7 +66,7 @@ namespace MistralRequest {
 
                     else if (done.Key == ConsoleKey.Y) { // TODO
                         Console.Write("\n\nWhat is it then? "); 
-                        await MakeModelRequest(Console.ReadLine()!);
+                        await ChatCompletion(Console.ReadLine()!);
                     };
                 }
                 else throw new Exception("it didn't go vroom"); // change to reflect info from details
