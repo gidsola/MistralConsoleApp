@@ -363,3 +363,4 @@ MigrationBackup/
 FodyWeavers.xsd
 /config.cs
 /MistralConfig/config.cs
+/MistralConfig/mistralConfig.cs
