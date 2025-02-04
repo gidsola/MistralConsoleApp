@@ -1,7 +1,7 @@
 ﻿using System;
 using System.IO;
 
-namespace MistralContext {
+namespace MistralConsoleApp.MistralContext {
     internal class MessageHistory {
         public static async Task AddPair() {
             string docPath = "./";//Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);

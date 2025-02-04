@@ -1,6 +1,6 @@
 ﻿using System.Text;
 using Newtonsoft.Json;
-using MistralConfig;
+using MistralConsoleApp.MistralConfig;
 
 /*
  * TODO:
@@ -9,7 +9,7 @@ using MistralConfig;
  * and start adding other "requesters"
  */
 
-namespace MistralRequest {
+namespace MistralConsoleApp.MistralRequest {
 
     internal class MistralChat {
 

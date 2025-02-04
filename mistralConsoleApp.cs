@@ -1,6 +1,6 @@
 ﻿
-using MistralConfig;
-using MistralRequest;
+using MistralConsoleApp.MistralConfig;
+using MistralConsoleApp.MistralRequest;
 
 MistralChatConfig config = new();
 MistralChat mistralChat = new();
