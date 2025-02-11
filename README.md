@@ -1,4 +1,6 @@
 ## Simple console based AI chat app in C#
+### Note:
+This has been abandoned and will not receive updates. See instead: https://github.com/gidsola/MAI
 
 ![preview](preview.png)
 
@@ -10,5 +12,3 @@
  - Build/Run/Debug to achieve console.
 
 
-##### Note:
-The configuration will be changing to allow modification without the need to rebuild the binary.
